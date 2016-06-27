@@ -24,17 +24,15 @@ print 'Socket bind complete'
 #Start listening on socket
 s.listen(10)
 print 'Socket now listening'
- 
+def Display(cuser):
+	loop1 = len(arr)
+	while loop1:
+		loop1 -= 1
+		arr[loop1]['con'].send("\n" + cuser['name1'] + " is recently Connected")
+	return
 #Function for handling connections. This will be used to create threads
 def clientthread(conn):
-    #Sending message to connected client
-	#loop1 = len(arr)
-	#conn.send(str(loop1)) #send only takes string 
-	
-    #infinite loop1 so that function do not terminate and thread do not end.
 	while 1:
-         
-        #Receiving from client
 		data = conn.recv(1024)
 		if conn == arr[0]['con']:
 			conn = arr[1]['con']
@@ -44,7 +42,6 @@ def clientthread(conn):
 			conn = arr[0]['con']
 			conn.send(data)
 			conn = arr[1]['con']
-    #came out of loop1
 	conn.close()
 def DisplayUsers(conn):
 	conn.send("Connected User are: \n")
@@ -53,17 +50,8 @@ def DisplayUsers(conn):
 		loop1 -= 1
 		conn.send(arr[loop1]['name1']+"\n")
 	return
-	
-def Display(cuser):
-	loop1 = len(arr)
-	while loop1:
-		loop1 -= 1
-		arr[loop1]['con'].send("\n" + cuser['name1'] + " is recently Connected")
-	return
-
 arr =[]
 i = 0
-
 while 1:
     conn, addr = s.accept()
     cuser = {}
